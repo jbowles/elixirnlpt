@@ -15,9 +15,8 @@ defmodule Exnlpt.Token do
     Exnlpt.Token.count(:up, :count, "Count words in and in and in this Sentence for a sentence COUNT.")
   """
   @doc "Return HashDict with unique {word, count} with an upcase, downcase, or nil text normalizing type and sort numerical or alphabetical."
-  def count(case, sort_type, sentence) do
-    res = {case, sentence} |> normalize |> find_words 
-    |> count_unique
+  def count(scase, sort_type, sentence) do
+    res = {scase, sentence} |> normalize |> find_words |> count_unique
     sort_by_unique(sort_type, res)
   end
 
