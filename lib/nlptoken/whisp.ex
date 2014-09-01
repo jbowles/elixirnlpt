@@ -15,18 +15,16 @@ defmodule Exnlpt.Token do
     Exnlpt.Token.count(:up, :count, "Count words in and in and in this Sentence for a sentence COUNT.")
   """
   @doc "Return HashDict with unique {word, count} with an upcase, downcase, or nil text normalizing type and sort numerical or alphabetical."
-  def count(scase, sort_type, sentence) do
-    res = {scase, sentence} |> normalize |> find_words |> count_unique
-    sort_by_unique(sort_type, res)
+  def count({scase, sort_type}, sentence) do
+    normalize({scase, sentence}) |> find_words |> count_unique |> sort_by(sort_type)
   end
 
-  def sort_by_unique(sort_type,res) do
-    case sort_type do
-      :count ->
-        Enum.sort(res, fn {_, v1}, {_, v2} -> v1 > v2 end )
-      :alphabet ->
-        Enum.sort(res)
-    end
+  @doc "Sort by unique word count or alphabetically. Note that piped lists to Enum are the head arg, so the sort_type has to be the second arg"
+  defp sort_by(unique_words,:count) do
+    Enum.sort(unique_words,fn {_, v1,}, {_, v2} -> v1 > v2 end )
+  end
+  defp sort_by(unique_words,_) do
+    Enum.sort(unique_words)
   end
 
   @doc "Recurse through list of words udpating the HashDict count for each unique word."
@@ -41,15 +39,16 @@ defmodule Exnlpt.Token do
     Regex.scan(~r/\w+/, s)
   end
 
-  defp normalize(string_direction) do
-    case string_direction do
-      {:down, str} ->
-        String.downcase(str)
-      {:up, str} ->
-        String.upcase(str)
-      {_, str} ->
-        str
-    end
+  @doc "Typical erlang pattern matching functions for options to normalize strings."
+  def normalize({:down, str}) do
+    String.downcase(str)
   end
+  def normalize({:up, str}) do
+    String.upcase(str)
+  end
+  def normalize({_, str}) do
+    str
+  end
+
 end
 
