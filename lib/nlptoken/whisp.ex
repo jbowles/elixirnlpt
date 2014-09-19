@@ -12,7 +12,8 @@ defmodule Exnlpt.Token do
   Of course if all you needed was white space split you could do that yourself with regular expressions. The WhiSP (White Space tokenizer) also give you a sorted count of all words.
 
   EX:
-    Exnlpt.Token.count(:up, :count, "Count words in and in and in this Sentence for a sentence COUNT.")
+    Exnlpt.Token.count({:up, :count}, "Count words in and in and in this Sentence for a sentence COUNT.")
+    Exnlpt.Token.count({:ok, :ok}, "Count words in and in and in this Sentence for a sentence COUNT.")
   """
   @doc "Return HashDict with unique {word, count} with an upcase, downcase, or nil text normalizing type and sort numerical or alphabetical."
   def count({scase, sort_type}, sentence) do
