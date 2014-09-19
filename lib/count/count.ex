@@ -3,10 +3,10 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 #
-defmodule Exnlpt do
+defmodule Exnlpt.Count do
 
   @doc "Recurse through list of words udpating the HashDict count for each unique word."
-  def count_unique(words), do: count_unique(HashDict.new, words)
+  def unique_words(word_list), do: count_unique(HashDict.new, word_list)
   defp count_unique(hash, [head|tail]) do
     hash = HashDict.update hash, head, 1, &(&1 + 1)
     count_unique hash, tail
