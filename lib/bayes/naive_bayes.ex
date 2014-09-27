@@ -8,7 +8,7 @@ defmodule Exnlpt.NaiveBayes do
   Naive Bayesian classification for text.
 
   EX:
-    Exnlpt.NaiveBayes.init([:cat1, :cat2, :cat3])
+    Exnlpt.NaiveBayes.categories([:cat1, :cat2, :cat3])
   """
 
   #def init(catgs) do 

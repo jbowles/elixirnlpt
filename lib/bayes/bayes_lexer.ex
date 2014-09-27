@@ -21,6 +21,6 @@ defmodule Exnlpt.BayesLexer do
   end
 
   def naive_index(word_array) do
-    Enum.map(word_array, &(String.downcase(&1)) ) |> Exnlpt.count_unique
+    Enum.map(word_array, &String.downcase/1 ) |> Exnlpt.count_unique
   end
 end
